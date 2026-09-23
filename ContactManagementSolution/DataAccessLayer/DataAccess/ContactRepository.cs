@@ -129,13 +129,14 @@ namespace DataAccessLayer.DataAccess
                             DtoContact contact = new DtoContact
                             {
                                 ContactID = (int)reader["ContactID"],
-                                FirstName = (string)reader["FirstName"],
-                                LastName = (string)reader["LastName"],
-                                Email = (string)reader["Email"],
-                                Phone = (string)reader["Phone"],
-                                Address = (string)reader["Address"],
-                                CountryID = (int)reader["CountryID"]
+                                FirstName = (reader["FirstName"] != DBNull.Value) ?(string)reader["FirstName"]: string.Empty,
+                                LastName = (reader["LastName"] != DBNull.Value) ?(string)reader["LastName"] : string.Empty,
+                                Email = (reader["Email"] != DBNull.Value) ? (string)reader["Email"] : string.Empty,
+                                Phone = (reader["Phone"] != DBNull.Value) ? (string)reader["Phone"]: string.Empty,
+                                Address = (reader["Address"] != DBNull.Value) ? (string)reader["Address"] : string.Empty
+                                
                             };
+                            if (reader["CountryID"] != DBNull.Value) contact.CountryID = (int)reader["CountryID"];
 
                             allContacts.Add(contact);
                         }
@@ -174,16 +175,20 @@ namespace DataAccessLayer.DataAccess
 
                         if (reader.Read())
                         {
+
                             dtoContact = new DtoContact
                             {
                                 ContactID = (int)reader["ContactID"],
-                                FirstName = (string)reader["FirstName"],
-                                LastName = (string)reader["LastName"],
-                                Email = (string)reader["Email"],
-                                Phone = (string)reader["Phone"],
-                                Address = (string)reader["Address"],
-                                CountryID = (int)reader["CountryID"]
+                                FirstName = (reader["FirstName"] != DBNull.Value) ? (string)reader["FirstName"] : string.Empty,
+                                LastName = (reader["LastName"] != DBNull.Value) ? (string)reader["LastName"] : string.Empty,
+                                Email = (reader["Email"] != DBNull.Value) ? (string)reader["Email"] : string.Empty,
+                                Phone = (reader["Phone"] != DBNull.Value) ? (string)reader["Phone"] : string.Empty,
+                                Address = (reader["Address"] != DBNull.Value) ? (string)reader["Address"] : string.Empty
+
                             };
+
+                            if (reader["CountryID"] != DBNull.Value) dtoContact.CountryID = (int)reader["CountryID"];
+
                         }
                     }
                 }
